@@ -351,13 +351,13 @@ For technical support or integration questions:
 1. Create a `.env.local` file in the root directory:
 
 ```env
-# Use the project where the function was deployed
-VITE_SUPABASE_URL=https://gozcqptfjwdofwqowxwb.supabase.co
+# Use your correct Supabase project
+VITE_SUPABASE_URL=https://tuiewoisulkndhydbipt.supabase.co
 VITE_SUPABASE_ANON_KEY=your-anon-key-here
 ```
 
 2. Get your anon key from the Supabase dashboard:
-   - Go to https://supabase.com/dashboard/project/gozcqptfjwdofwqowxwb/settings/api
+   - Go to https://supabase.com/dashboard/project/tuiewoisulkndhydbipt/settings/api
    - Copy the "anon public" key
 
 ## Development
@@ -367,9 +367,15 @@ npm install
 npm run dev
 ```
 
-## Deployed Functions
+## Functions to Deploy
 
-- ✅ `generate-cv-link` - Deployed to project `gozcqptfjwdofwqowxwb`
+- ⚠️ `generate-cv-link` - **Needs to be deployed to project `tuiewoisulkndhydbipt`**
+
+### Deploy the function:
+```bash
+npx supabase link --project-ref tuiewoisulkndhydbipt
+npx supabase functions deploy generate-cv-link
+```
 
 ## Database Tables
 
