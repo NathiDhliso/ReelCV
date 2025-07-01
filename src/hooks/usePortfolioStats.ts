@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getSupabaseClient } from './useAuth';
+import { supabase } from '../services/supabase';
 
 interface PortfolioStats {
   totalViews: number;
@@ -54,7 +54,7 @@ export const usePortfolioStats = (userId: string | undefined) => {
     const loadPortfolioStats = async () => {
       try {
         setLoading(true);
-        const supabase = getSupabaseClient();
+        // Using imported supabase client
 
         // Get total views from all public links
         const { data: linksData } = await supabase
@@ -62,7 +62,7 @@ export const usePortfolioStats = (userId: string | undefined) => {
           .select('view_count')
           .eq('candidate_id', userId);
 
-        const totalViews = linksData?.reduce((sum, link) => sum + (link.view_count || 0), 0) || 0;
+        const totalViews = linksData?.reduce((sum: number, link: any) => sum + (link.view_count || 0), 0) || 0;
 
         // Get count of active links
         const { data: activeLinksData } = await supabase
@@ -73,39 +73,49 @@ export const usePortfolioStats = (userId: string | undefined) => {
 
         const linkShares = activeLinksData?.length || 0;
 
-        // Get skills data from candidate_skills table
-        const { data: skillsData } = await supabase
-          .from('candidate_skills')
-          .select('*')
-          .eq('candidate_id', userId)
-          .order('endorsement_count', { ascending: false });
+        // Get skills data from candidate_skills table (if it exists)
+        let formattedSkills: SkillData[] = [];
+        try {
+          const { data: skillsData } = await supabase
+            .from('candidate_skills')
+            .select('*')
+            .eq('candidate_id', userId)
+            .order('endorsement_count', { ascending: false });
 
-        const formattedSkills: SkillData[] = skillsData?.map(skill => ({
-          name: skill.skill_name,
-          level: skill.proficiency_level,
-          verified: skill.verified,
-          category: skill.skill_category,
-          endorsements: skill.endorsement_count || 0,
-          assessmentScore: skill.assessment_score
-        })) || [];
+          formattedSkills = skillsData?.map((skill: any) => ({
+            name: skill.skill_name,
+            level: skill.proficiency_level,
+            verified: skill.verified,
+            category: skill.skill_category,
+            endorsements: skill.endorsement_count || 0,
+            assessmentScore: skill.assessment_score
+          })) || [];
+        } catch (error) {
+          console.log('candidate_skills table not found, using empty skills data');
+        }
 
-        // Get projects data from candidate_projects table
-        const { data: projectsData } = await supabase
-          .from('candidate_projects')
-          .select('*')
-          .eq('candidate_id', userId)
-          .eq('project_status', 'completed')
-          .order('completion_date', { ascending: false });
+        // Get projects data from candidate_projects table (if it exists)
+        let formattedProjects: ProjectData[] = [];
+        try {
+          const { data: projectsData } = await supabase
+            .from('candidate_projects')
+            .select('*')
+            .eq('candidate_id', userId)
+            .eq('project_status', 'completed')
+            .order('completion_date', { ascending: false });
 
-        const formattedProjects: ProjectData[] = projectsData?.map(project => ({
-          title: project.project_title,
-          description: project.project_description || '',
-          technologies: Array.isArray(project.technologies) ? project.technologies : [],
-          status: project.project_status,
-          impact: project.impact_metrics || '',
-          link: project.project_url,
-          repositoryUrl: project.repository_url
-        })) || [];
+          formattedProjects = projectsData?.map((project: any) => ({
+            title: project.project_title,
+            description: project.project_description || '',
+            technologies: Array.isArray(project.technologies) ? project.technologies : [],
+            status: project.project_status,
+            impact: project.impact_metrics || '',
+            link: project.project_url,
+            repositoryUrl: project.repository_url
+          })) || [];
+        } catch (error) {
+          console.log('candidate_projects table not found, using empty projects data');
+        }
 
         // Get profile data for completeness calculation - use maybeSingle() to handle missing profiles
         const { data: profileData } = await supabase

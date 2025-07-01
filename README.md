@@ -345,3 +345,37 @@ For technical support or integration questions:
 ---
 
 **ReelCV** - Your skills, proven and showcased. No resumes required.
+
+## Environment Setup
+
+1. Create a `.env.local` file in the root directory:
+
+```env
+# Use the project where the function was deployed
+VITE_SUPABASE_URL=https://gozcqptfjwdofwqowxwb.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key-here
+```
+
+2. Get your anon key from the Supabase dashboard:
+   - Go to https://supabase.com/dashboard/project/gozcqptfjwdofwqowxwb/settings/api
+   - Copy the "anon public" key
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Deployed Functions
+
+- ✅ `generate-cv-link` - Deployed to project `gozcqptfjwdofwqowxwb`
+
+## Database Tables
+
+The following tables are expected but will gracefully handle missing data:
+- `public_cv_links` ✅ (exists)
+- `portfolio_settings` ✅ (exists) 
+- `profiles` ✅ (exists)
+- `candidate_skills` ⚠️ (optional - will use empty data if missing)
+- `candidate_projects` ⚠️ (optional - will use empty data if missing)
