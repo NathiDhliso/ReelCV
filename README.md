@@ -1,36 +1,184 @@
-# ReelCV - Public Skills Portfolio Generator
+# ReelCV - Dynamic Candidate Profiles
 
-Part of the ReelApps ecosystem - Redefining talent showcase beyond traditional resumes.
+Professional candidate profile management and public CV generation platform.
 
-## About
-ReelCV is a streamlined platform that generates public portfolio links showcasing verified skills and proven projects. No information capture, no traditional resume formats - just pure talent demonstration powered by data from ReelSkills and ReelProjects.
+## 🌟 Features
 
-## 🚀 Core Philosophy
+### 👤 Profile Management
+- **Dynamic Profile Builder** - Create comprehensive professional profiles
+- **Skills Showcase** - Highlight technical and soft skills with proficiency levels
+- **Experience Timeline** - Chronological work history with achievements
+- **Education & Certifications** - Academic background and professional certifications
+- **Portfolio Integration** - Link projects from ReelProjects seamlessly
 
-**Redefining the Status Quo**
-- No cookie-cutter resumes or ATS-friendly formats
-- No manual information entry or data capture
-- Focus on proven skills and real project impact
-- Public portfolio links for easy sharing with employers
+### 🌐 Public CV Generation
+- **Shareable CV Links** - Generate public URLs for your professional profile
+- **SEO Optimized** - Search engine friendly candidate profiles
+- **Professional Templates** - Multiple CV layouts and designs
+- **PDF Export** - Download CV as professional PDF document
+- **QR Code Generation** - Easy sharing via QR codes
 
-## ✨ Features
+### 🎯 ReelPass System
+- **Government Verification** - South African ID and qualification verification
+- **Trust Score** - Credibility rating based on verified information
+- **Verification Badges** - Visual indicators of verified credentials
+- **Background Checks** - Automated verification processes
+- **Compliance Tracking** - POPIA and employment law compliance
 
-### Single Purpose Platform
-- **Public Portfolio Generation**: Create shareable links showcasing your verified talents
-- **Data Integration**: Automatically pulls from ReelSkills and ReelProjects platforms
-- **Zero Data Entry**: No forms, no uploads, no manual input required
-- **Professional Showcase**: Clean, modern portfolio presentation
+### 📊 Recruiter Scorecard
+- **Skill Assessment** - Detailed evaluation of candidate competencies
+- **Cultural Fit Analysis** - Personality and team compatibility scoring
+- **Performance Predictions** - AI-powered role suitability analysis
+- **Interview Recommendations** - Suggested questions and focus areas
+- **Comparison Tools** - Side-by-side candidate evaluations
 
-### Data Sources
-- **ReelSkills Integration**: Verified skills, assessments, and endorsements
-- **ReelProjects Integration**: Completed projects with real impact metrics
-- **Automatic Sync**: Real-time updates from connected platforms
+### 📈 Analytics & Insights
+- **Profile Views** - Track who's viewing your profile
+- **Search Visibility** - Monitor profile appearance in recruiter searches
+- **Engagement Metrics** - Measure profile interaction and interest
+- **Market Insights** - Industry trends and salary benchmarks
+- **Optimization Tips** - AI-powered profile improvement suggestions
 
-### Portfolio Features
-- **Public Sharing**: Generate long-term shareable portfolio links
-- **View Analytics**: Track portfolio views and engagement
-- **Professional Design**: Clean, employer-friendly presentation
-- **Mobile Optimized**: Perfect viewing on all devices
+## 🎯 Target Users
+
+### 👤 Candidates
+- **Job Seekers** - Create professional profiles to attract recruiters
+- **Career Changers** - Showcase transferable skills and experience
+- **Fresh Graduates** - Build compelling entry-level profiles
+- **Freelancers** - Professional portfolio and credential verification
+- **Remote Workers** - Global profile visibility and verification
+
+### 🎯 Recruiters (View Access)
+- **Talent Acquisition** - Search and evaluate candidate profiles
+- **Background Verification** - Access verified candidate information
+- **Skill Assessment** - Use scorecard system for candidate evaluation
+- **Pipeline Management** - Track and manage candidate interactions
+- **Compliance Checking** - Ensure candidate eligibility and verification
+
+## 🏗️ Technology Stack
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **Authentication**: Supabase Auth + SSO
+- **Database**: PostgreSQL (Supabase)
+- **Styling**: Tailwind CSS + CSS Modules
+- **PDF Generation**: jsPDF + html2canvas
+- **QR Codes**: qrcode.js
+- **File Upload**: Supabase Storage
+- **Deployment**: AWS Amplify
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+ and npm
+- Supabase account and project
+- South African government API access (for verification)
+
+### Installation
+```bash
+git clone https://github.com/your-org/reelcv-reelapps.git
+cd reelcv-reelapps
+npm install
+```
+
+### Environment Setup
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_HOME_URL=https://www.reelapps.co.za
+VITE_APP_URL=https://reelcv.reelapps.co.za
+VITE_SSO_ENABLED=true
+VITE_MAIN_DOMAIN=reelapps.co.za
+VITE_SA_GOVERNMENT_API_KEY=your_gov_api_key
+```
+
+### Development
+```bash
+npm run dev
+# App runs on http://localhost:5176
+```
+
+## 📋 Key Features Breakdown
+
+### Profile Builder
+- **Personal Information** - Contact details, location, availability
+- **Professional Summary** - Compelling career overview
+- **Skills Matrix** - Technical and soft skills with proficiency ratings
+- **Work Experience** - Detailed employment history with achievements
+- **Education** - Academic qualifications and ongoing learning
+- **Certifications** - Professional certifications and licenses
+- **Languages** - Language proficiency levels
+- **References** - Professional references and recommendations
+
+### ReelPass Verification
+- **ID Verification** - South African ID document validation
+- **Qualification Verification** - Academic and professional qualification checks
+- **Employment History** - Previous employment verification
+- **Criminal Background** - Basic criminal record checks (with consent)
+- **Credit Checks** - Financial background verification (for relevant roles)
+- **Professional References** - Automated reference checking
+
+### Public CV Features
+- **Custom URLs** - Personalized profile URLs (e.g., reelcv.reelapps.co.za/john-smith)
+- **SEO Optimization** - Meta tags, structured data, social media cards
+- **Analytics** - Profile view tracking and visitor insights
+- **Social Sharing** - LinkedIn, Twitter, WhatsApp sharing integration
+- **Print Optimization** - CSS optimized for professional printing
+
+### Recruiter Tools
+- **Advanced Search** - Filter candidates by skills, experience, location
+- **Bulk Actions** - Shortlist, contact, or export multiple candidates
+- **Notes & Tags** - Private recruiter notes and candidate categorization
+- **Interview Scheduling** - Integration with calendar systems
+- **Compliance Dashboard** - Track verification status and compliance requirements
+
+## 🔐 Security & Privacy
+
+- **POPIA Compliance** - South African data protection compliance
+- **Consent Management** - Granular privacy controls
+- **Data Encryption** - End-to-end encryption for sensitive data
+- **Access Controls** - Role-based access to candidate information
+- **Audit Logging** - Complete audit trail of profile access and changes
+
+## 🌍 Localization
+
+- **Multi-language Support** - English, Afrikaans, Zulu, Xhosa
+- **Local Compliance** - South African employment law compliance
+- **Currency Formatting** - ZAR salary expectations and formatting
+- **Date Formats** - Local date and time formatting
+- **Regional Settings** - Province-specific information and requirements
+
+## 📱 Mobile Experience
+
+- **Responsive Design** - Optimized for all device sizes
+- **Progressive Web App** - App-like experience on mobile devices
+- **Offline Capability** - Basic functionality without internet connection
+- **Touch Optimization** - Mobile-friendly interactions and navigation
+- **Fast Loading** - Optimized for mobile networks
+
+## 🔗 Integrations
+
+- **ReelProjects** - Automatic project portfolio integration
+- **ReelSkills** - Skills verification and showcase integration
+- **ReelHunter** - Recruiter platform integration
+- **LinkedIn** - Profile import and sync capabilities
+- **Government APIs** - ID and qualification verification services
+- **Payment Gateways** - Premium features and verification payments
+
+## 📊 Analytics Dashboard
+
+- **Profile Performance** - Views, searches, and engagement metrics
+- **Market Insights** - Industry trends and competitive analysis
+- **Optimization Score** - Profile completeness and optimization rating
+- **Verification Status** - Track verification progress and requirements
+- **Activity Timeline** - Recent profile activities and updates
+
+## 🎨 Customization Options
+
+- **Profile Themes** - Multiple professional design templates
+- **Color Schemes** - Customizable brand colors and styling
+- **Layout Options** - Different profile layout configurations
+- **Privacy Settings** - Granular control over information visibility
+- **Notification Preferences** - Customizable alert and update settings
 
 ## 🛠 Development
 
