@@ -46,23 +46,23 @@ const SAReelPassDashboard: React.FC = () => {
       setIsLoading(true)
       // TODO: Implement actual API call to SA ReelPass status
       
-      // Mock data for South African context with skills + persona focus
+      // TODO: Replace with actual API call to SA ReelPass service
       const mockData: SAReelPassStatus = {
         profileId: 'user-123',
-        reelpassScore: 78,
-        reelpassStatus: 'partial',
+        reelpassScore: 0,
+        reelpassStatus: 'unverified',
         province: 'gauteng',
-        beeStatus: 'level_4',
-        verifiedSkillCount: 6,
-        videoVerifiedSkills: 2,
-        personaAssessed: false, // This will drive the persona assessment priority
+        beeStatus: 'not_assessed',
+        verifiedSkillCount: 0,
+        videoVerifiedSkills: 0,
+        personaAssessed: false,
         personaConfidenceScore: 0,
-        verifiedIdentityChecks: 1,
+        verifiedIdentityChecks: 0,
         verifiedBeeCount: 0,
-        verifiedEducationCount: 1,
-        verifiedEmploymentCount: 2,
+        verifiedEducationCount: 0,
+        verifiedEmploymentCount: 0,
         verifiedLicenseCount: 0,
-        verifiedSetaCount: 1
+        verifiedSetaCount: 0
       }
       
       setReelpassStatus(mockData)

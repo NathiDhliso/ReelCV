@@ -28,10 +28,22 @@ interface RecruiterRating {
 }
 
 
-// --- Mock Data and Services ---
-// This section makes the component runnable without a real backend.
+// --- Remove Mock Data - Connect to Real Backend ---
+// TODO: Replace with actual API calls to recruiter service
 
-// 1. Create mock data that matches the RecruiterRating type
+// Actual service function for production
+const getRecruiterRatings = async (): Promise<RecruiterRating[]> => {
+  try {
+    // In production, this would call the actual API
+    const response = await fetch('/api/recruiters/ratings');
+    return await response.json();
+  } catch (error) {
+    console.error('Failed to fetch recruiter ratings:', error);
+    return [];
+  }
+};
+
+// Temporary mock data for development (to be removed)
 const mockRecruiterData: RecruiterRating[] = [
   {
     id: '1',
@@ -167,8 +179,8 @@ const mockRecruiterData: RecruiterRating[] = [
   }
 ];
 
-// 2. Mock the getRecruiterRatings service function
-const getRecruiterRatings = (): Promise<RecruiterRating[]> => {
+// Mock service function for development
+const getMockRecruiterRatings = (): Promise<RecruiterRating[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(mockRecruiterData);
@@ -192,7 +204,7 @@ const RecruiterScorecard: React.FC = () => {
   const loadRecruiterRatings = async () => {
     try {
       setIsLoading(true);
-      const ratings = await getRecruiterRatings();
+      const ratings = await getMockRecruiterRatings();
       setRecruiters(ratings);
     } catch (error) {
       console.error('Failed to load recruiter ratings:', error);
@@ -468,7 +480,10 @@ const RecruiterScorecard: React.FC = () => {
         <p className="text-gray-400 mb-6 text-lg leading-relaxed">
           Help other candidates by sharing your experience. Your feedback drives accountability and improves the hiring process for everyone.
         </p>
-        <button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-blue-600/20">
+        <button 
+          onClick={() => window.open('https://forms.gle/YourReviewForm', '_blank')}
+          className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-xl hover:shadow-blue-600/20"
+        >
           Submit a Review
         </button>
         <div className="mt-4 text-sm text-gray-500">

@@ -18,7 +18,7 @@ import {
   CheckCircle,
   Users
 } from 'lucide-react';
-import { getSupabaseClient } from './hooks/useAuth';
+import { supabase } from './services/supabase';
 import { 
   ReelAppsMainLink, 
   ReelSkillsLink, 
@@ -97,7 +97,6 @@ const CandidateDashboard: React.FC = () => {
     if (!user) return;
     
     try {
-      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('portfolio_settings')
         .select('*')
@@ -129,7 +128,6 @@ const CandidateDashboard: React.FC = () => {
       // Optimistically update the UI
       setPortfolioSettings(updatedSettings);
 
-      const supabase = getSupabaseClient();
       const { error } = await supabase
         .from('portfolio_settings')
         .upsert({
@@ -161,7 +159,6 @@ const CandidateDashboard: React.FC = () => {
     if (!user) return;
     
     try {
-      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from('public_cv_links')
         .select('*')
@@ -190,11 +187,15 @@ const CandidateDashboard: React.FC = () => {
   };
 
   const generateLink = async () => {
-    if (!user) return;
+    if (!user) {
+      console.error('User not authenticated');
+      return;
+    }
     
     setLinkLoading(true);
     try {
-      const supabase = getSupabaseClient();
+      console.log('Generating link for user:', user.id);
+      console.log('Portfolio settings:', portfolioSettings);
       
       // Calculate expiration based on settings
       const expirationDays = portfolioSettings.linkExpiration === '1-year' ? 365 :
@@ -202,28 +203,48 @@ const CandidateDashboard: React.FC = () => {
                            portfolioSettings.linkExpiration === '3-months' ? 90 : 
                            null; // Never expire
       
+      const requestBody = { 
+        expiresInDays: expirationDays,
+        settings: portfolioSettings,
+        includeReelPassData: true,
+        includeScoringBreakdown: true
+      };
+      
+      console.log('Request body:', requestBody);
+      
       const { data, error } = await supabase.functions.invoke('generate-cv-link', {
-        body: { 
-          expiresInDays: expirationDays,
-          settings: portfolioSettings
-        },
+        body: requestBody,
       });
       
-      if (!error && data) {
+      console.log('Response:', { data, error });
+      
+      if (error) {
+        console.error('Supabase function error:', error);
+        return;
+      }
+      
+      if (data && data.slug) {
         const base = window.location.origin.includes('localhost')
           ? 'http://localhost:5174/public'
           : `${window.location.origin}/public`;
         
-        setPublicLink({
+        const newPublicLink = {
           url: `${base}/${data.slug}`,
           slug: data.slug,
           expires_at: data.expires_at,
           views: 0,
           created_at: new Date().toISOString()
-        });
+        };
+        
+        console.log('Setting public link:', newPublicLink);
+        setPublicLink(newPublicLink);
         
         // Refresh stats after generating new link
         await refreshStats();
+        
+        console.log('Link generated successfully!');
+      } else {
+        console.error('No data or slug returned from function');
       }
     } catch (error) {
       console.error('Failed to generate link:', error);
@@ -236,7 +257,7 @@ const CandidateDashboard: React.FC = () => {
     
     setLinkLoading(true);
     try {
-      const supabase = getSupabaseClient();
+      
       const { error } = await supabase
         .from('public_cv_links')
         .update({ revoked: true })

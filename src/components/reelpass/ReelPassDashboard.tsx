@@ -39,16 +39,16 @@ const ReelPassDashboard: React.FC = () => {
       // const response = await fetch('/api/reelpass/status')
       // const data = await response.json()
       
-      // Mock data for now
+      // TODO: Replace with actual API call to ReelPass service
       const mockData: ReelPassStatus = {
         profileId: 'user-123',
-        reelpassScore: 75,
-        reelpassStatus: 'partial',
-        verifiedGovernmentChecks: 1,
-        verifiedEducationCount: 1,
-        verifiedEmploymentCount: 2,
+        reelpassScore: 0,
+        reelpassStatus: 'unverified',
+        verifiedGovernmentChecks: 0,
+        verifiedEducationCount: 0,
+        verifiedEmploymentCount: 0,
         verifiedLicenseCount: 0,
-        verifiedSkillCount: 5
+        verifiedSkillCount: 0
       }
       
       setReelpassStatus(mockData)
